@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #1c1c1e;
+            --bg-tertiary: #2c2c2e;
+            --text-primary: #ffffff;
+            --text-secondary: #98989d;
+            --accent: #0a84ff;
+            --accent-hover: #409cff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(28, 28, 30, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), #64d2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(10, 132, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            background: linear-gradient(135deg, #ffffff, #98989d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(10, 132, 255, 0.4);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--text-secondary);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 2px;
+            animation: scrollDot 2s infinite;
+        }
+
+        @keyframes scrollDot {
+            0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            100% { transform: translateX(-50%) translateY(20px); opacity: 0; }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 132, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .project-card:hover .project-content h3 {
+            color: var(--accent);
+        }
+
+        .project-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            padding: 0.4rem 1rem;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+
+        /* Photography Section */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .photo-item {
+            position: relative;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .photo-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 132, 255, 0.8), rgba(100, 210, 255, 0.8));
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .photo-item:hover::before {
+            opacity: 0.7;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c2c2e, #1c1c1e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .photo-item:hover .photo-placeholder {
+            transform: scale(1.1);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+        }
+
+        .photo-item:hover .photo-overlay {
+            transform: translateY(0);
+        }
+
+        .photo-overlay h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .photo-overlay p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 3rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Animations on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+            .nav-links { gap: 1rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Portfolio</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#photography">Photography</a></li>
+            <li><a href="javascript:void(0)" onclick="loadPage2()">About</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Creative Developer</h1>
+            <p>Crafting beautiful digital experiences</p>
+            <a href="#projects" class="cta-button">View My Work</a>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Web Development</h2>
+        <p class="section-subtitle">Building responsive and modern web applications</p>
+        
+        <div class="projects-grid">
+            <div class="project-card fade-in">
+                <div class="project-image">🌐</div>
+                <div class="project-content">
+                    <h3>E-Commerce Platform</h3>
+                    <p>A full-featured online shopping platform with payment integration and real-time inventory management.</p>
+                    <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">MongoDB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <div class="project-image">💼</div>
+                <div class="project-content">
+                    <h3>Portfolio CMS</h3>
+                    <p>Custom content management system for creative professionals to showcase their work.</p>
+                    <div class="project-tags">
+                        <span class="tag">Vue.js</span>
+                        <span class="tag">GraphQL</span>
+                        <span class="tag">PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <div class="project-image">📊</div>
+                <div class="project-content">
+                    <h3>Analytics Dashboard</h3>
+                    <p>Real-time data visualization dashboard for business intelligence and reporting.</p>
+                    <div class="project-tags">
+                        <span class="tag">Angular</span>
+                        <span class="tag">D3.js</span>
+                        <span class="tag">Firebase</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 6rem;">App Development</h2>
+        <p class="section-subtitle">Native and cross-platform mobile applications</p>
+        
+        <div class="projects-grid">
+            <div class="project-card fade-in">
+                <div class="project-image">📱</div>
+                <div class="project-content">
+                    <h3>Fitness Tracker</h3>
+                    <p>Cross-platform fitness app with workout tracking, nutrition planning, and social features.</p>
+                    <div class="project-tags">
+                        <span class="tag">React Native</span>
+                        <span class="tag">Redux</span>
+                        <span class="tag">AWS</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <div class="project-image">🎵</div>
+                <div class="project-content">
+                    <h3>Music Streaming App</h3>
+                    <p>Native iOS music player with offline support and personalized recommendations.</p>
+                    <div class="project-tags">
+                        <span class="tag">Swift</span>
+                        <span class="tag">CoreData</span>
+                        <span class="tag">AVFoundation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <div class="project-image">🗺️</div>
+                <div class="project-content">
+                    <h3>Travel Companion</h3>
+                    <p>Android travel planning app with offline maps, itinerary management, and expense tracking.</p>
+                    <div class="project-tags">
+                        <span class="tag">Kotlin</span>
+                        <span class="tag">Jetpack</span>
+                        <span class="tag">Room</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="photography">
+        <h2 class="section-title">Photography</h2>
+        <p class="section-subtitle">Capturing moments through the lens</p>
+        
+        <div class="photo-gallery">
+            <div class="photo-item fade-in">
+                <div class="photo-placeholder">🌄</div>
+                <div class="photo-overlay">
+                    <h3>Mountain Sunrise</h3>
+                    <p>Golden hour at 3000m elevation</p>
+                </div>
+            </div>
+
+            <div class="photo-item fade-in">
+                <div class="photo-placeholder">🌃</div>
+                <div class="photo-overlay">
+                    <h3>City Lights</h3>
+                    <p>Urban landscape at midnight</p>
+                </div>
+            </div>
+
+            <div class="photo-item fade-in">
+                <div class="photo-placeholder">🌊</div>
+                <div class="photo-overlay">
+                    <h3>Ocean Waves</h3>
+                    <p>Long exposure coastal photography</p>
+                </div>
+            </div>
+
+            <div class="photo-item fade-in">
+                <div class="photo-placeholder">🌲</div>
+                <div class="photo-overlay">
+                    <h3>Forest Path</h3>
+                    <p>Morning mist in the woods</p>
+                </div>
+            </div>
+
+            <div class="photo-item fade-in">
+                <div class="photo-placeholder">🏔️</div>
+                <div class="photo-overlay">
+                    <h3>Alpine Vista</h3>
+                    <p>Panoramic mountain range</p>
+                </div>
+            </div>
+
+            <div class="photo-item fade-in">
+                <div class="photo-placeholder">🌆</div>
+                <div class="photo-overlay">
+                    <h3>Skyline View</h3>
+                    <p>Downtown architecture</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Creative Developer. All rights reserved.</p>
+        <p>Designed with passion and precision</p>
+        <div class="social-links">
+            <a href="#">📧</a>
+            <a href="#">💼</a>
+            <a href="#">📷</a>
+            <a href="#">🐦</a>
+        </div>
+    </footer>
+
+    <script>
+        function loadPage2() {
+            document.body.innerHTML = `
+                <style>
+                    .about-hero {
+                        height: 60vh;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: linear-gradient(135deg, rgba(10, 132, 255, 0.1), transparent);
+                        position: relative;
+                        overflow: hidden;
+                    }
+                    .about-hero::before {
+                        content: '';
+                        position: absolute;
+                        width: 300px;
+                        height: 300px;
+                        background: radial-gradient(circle, rgba(10, 132, 255, 0.3), transparent);
+                        border-radius: 50%;
+                        animation: float 6s ease-in-out infinite;
+                    }
+                    @keyframes float {
+                        0%, 100% { transform: translate(0, 0); }
+                        50% { transform: translate(50px, 50px); }
+                    }
+                    .about-content {
+                        max-width: 800px;
+                        margin: 0 auto;
+                        padding: 4rem 5%;
+                    }
+                    .skill-bars {
+                        margin: 3rem 0;
+                    }
+                    .skill {
+                        margin-bottom: 2rem;
+                    }
+                    .skill-name {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 0.5rem;
+                        font-weight: 500;
+                    }
+                    .skill-bar {
+                        height: 10px;
+                        background: var(--bg-tertiary);
+                        border-radius: 10px;
+                        overflow: hidden;
+                    }
+                    .skill-progress {
+                        height: 100%;
+                        background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+                        border-radius: 10px;
+                        animation: fillBar 2s ease-out forwards;
+                        transform-origin: left;
+                    }
+                    @keyframes fillBar {
+                        from { transform: scaleX(0); }
+                        to { transform: scaleX(1); }
+                    }
+                    .timeline {
+                        position: relative;
+                        padding: 2rem 0;
+                    }
+                    .timeline::before {
+                        content: '';
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 2px;
+                        height: 100%;
+                        background: var(--bg-tertiary);
+                    }
+                    .timeline-item {
+                        display: flex;
+                        margin-bottom: 3rem;
+                        position: relative;
+                    }
+                    .timeline-item:nth-child(even) {
+                        flex-direction: row-reverse;
+                    }
+                    .timeline-content {
+                        flex: 1;
+                        padding: 2rem;
+                        background: var(--bg-secondary);
+                        border-radius: 20px;
+                        margin: 0 2rem;
+                        animation: fadeInUp 0.8s ease-out;
+                    }
+                    .timeline-dot {
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 20px;
+                        height: 20px;
+                        background: var(--accent);
+                        border-radius: 50%;
+                        border: 4px solid var(--bg-primary);
+                        z-index: 1;
+                    }
+                </style>
+                <nav>
+                    <div class="logo">Portfolio</div>
+                    <ul class="nav-links">
+                        <li><a href="javascript:void(0)" onclick="location.reload()">Home</a></li>
+                        <li><a href="javascript:void(0)" onclick="location.reload()">Projects</a></li>
+                        <li><a href="javascript:void(0)" onclick="location.reload()">Photography</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </nav>
+
+                <div class="about-hero">
+                    <div style="position: relative; z-index: 1; text-align: center;">
+                        <h1 style="font-size: 4rem; margin-bottom: 1rem; animation: fadeInUp 0.8s ease-out;">About Me</h1>
+                        <p style="font-size: 1.5rem; color: var(--text-secondary); animation: fadeInUp 0.8s ease-out 0.2s both;">Passionate creator. Problem solver. Lifelong learner.</p>
+                    </div>
+                </div>
+
+                <div class="about-content">
+                    <section>
+                        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">My Story</h2>
+                        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+                            I'm a developer and photographer with a passion for creating beautiful, functional digital experiences. With over 5 years of experience in web and mobile development, I've worked with startups and enterprises to bring their visions to life.
+                        </p>
+                        <p style="color: var(--text-secondary); line-height: 1.8;">
+                            When I'm not coding, you'll find me behind the camera, capturing the world's beauty one frame at a time. I believe that great design and development share the same principles: attention to detail, purposeful composition, and emotional connection.
+                        </p>
+                    </section>
+
+                    <section style="margin-top: 4rem;">
+                        <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Skills & Expertise</h2>
+                        <div class="skill-bars">
+                            <div class="skill">
+                                <div class="skill-name">
+                                    <span>Web Development</span>
+                                    <span>95%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 95%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <div class="skill-name">
+                                    <span>Mobile Development</span>
+                                    <span>88%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 88%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <div class="skill-name">
+                                    <span>UI/UX Design</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 90%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <div class="skill-name">
+                                    <span>Photography</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="margin-top: 4rem;">
+                        <h2 style="font-size: 2.5rem; margin-bottom: 2rem; text-align: center;">Experience Timeline</h2>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <h3 style="color: var(--accent); margin-bottom: 0.5rem;">2024 - Present</h3>
+                                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">Senior Full Stack Developer</h4>
+                                    <p style="color: var(--text-secondary); line-height: 1.6;">Leading development teams in creating innovative web and mobile solutions for global clients.</p>
+                                </div>
+                                <div class="timeline-dot"></div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <h3 style="color: var(--accent); margin-bottom: 0.5rem;">2022 - 2024</h3>
+                                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">Full Stack Developer</h4>
+                                    <p style="color: var(--text-secondary); line-height: 1.6;">Developed scalable applications using modern frameworks and cloud technologies.</p>
+                                </div>
+                                <div class="timeline-dot"></div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <h3 style="color: var(--accent); margin-bottom: 0.5rem;">2020 - 2022</h3>
+                                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem;">Frontend Developer</h4>
+                                    <p style="color: var(--text-secondary); line-height: 1.6;">Specialized in creating responsive
